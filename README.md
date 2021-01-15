@@ -1,111 +1,31 @@
-### yarn serve 启动服务
+# agc-web-demos
+[![license](https://img.shields.io/badge/license-Apache--2.0-green)](./LICENCE)
 
-#### App.vue
-启用 禁用 sdk
-#### PageA.vue
-1. 自定义追踪 上传案例
-2. 动态添加script脚本
-#### PageB.vue
-1. 动态添加script脚本
-2. 动态添加图片资源
+This repo contains the source code for AGC Web Demos, which are developed by the AppGallery Connect team.
 
-- 切换pageA和pageB 动态添加资源至20条时触发上报，观察控制台network，若看到两次token请求和两次webv3请求则证明触发了数据上报，可以在webv3中看到请求数据内容，刷新页面和关闭页面时也会触发数据上报
+These demos enable access to using specific APIs. For more information
+about demos, and how to use them, see
+[Official Documentations](https://developer.huawei.com/consumer/cn/doc/development/AppGallery-connect-Guides/agc-get-started-web).
 
 
-#### 自定义追踪
-|事件|入参|参数是否必须|说明|
-|:---:|:---:|:---:|:---:|
-|start|-|-|开启追踪|
-|stop|-|-|结束追踪|
-|setAttribute|(key: string, value: string)|true|自定义属性|
-|getAttribute|(attr: string)|true|获取指定的自定义属性|
-|getAttributes|-|-|获取所有的自定义属性|
-|setMetric|(key: string, value: number)|true|自定义指标|
-|getMetric|(metric: string)|true|获取指定的自定义指标|
-|getMetrics|-|-|获取所有的自定义指标|
+## Introduction
+These are the available plugins in this repository.
 
-start和stop需成对出现，setAttribute和setMetric需在stop之前
+| Demo | Version | Documentation |
+|--------|-----|-----|
+| [agc-apms-demo-javascript](./agc-apms-demo-javascript) | [![version](https://img.shields.io/badge/Release-1.2.1.301-yellow)](./agc-apms-demo-javascript) | [Getting Started](https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-Guides/agc-clouddb-get-started) <br/> [API Reference](https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/clouddb) |
+| [agc-authservice-demo-javascript](./agc-authservice-demo-javascript) | [![version](https://img.shields.io/badge/Release-1.4.1.303-yellow)](./agc-authservice-demo-javascript) | [Getting Started](https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-Guides/agc-apms-agcsdk) <br/> [API Reference](https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/apms-overview) |
+| [agc-cloudfunction-demo-javascript](./agc-cloudfunction-demo-javascript) | [![version](https://img.shields.io/badge/Release-1.4.1.300-yellow)](./agc-cloudfunction-demo-javascript) | [Getting Started](https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-Guides/agc-applinking-getstarted-android-0000001054594767) <br/> [API Reference](https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/applinking-overview-0000001054820901) |
+| [agc-cloudstorage-demo-javascript](./agc-cloudstorage-demo-javascript) | [![version](https://img.shields.io/badge/Release-1.4.1.300-yellow)](./agc-cloudstorage-demo-javascript) | [Getting Started](https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-Guides/agc-applinking-getstarted-android-0000001054594767) <br/> [API Reference](https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/applinking-overview-0000001054820901) |
+| [agc-romoteconfig-demo-javascript](./agc-romoteconfig-demo-javascript) | [![version](https://img.shields.io/badge/Release-1.3.1.300-yellow)](./agc-romoteconfig-demo-javascript) | [Getting Started](https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-Guides/agc-appmessage-getstarted) <br/> [API Reference](https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-References/appmessaging-overview) |
 
-```js
-// 创建一个trace实例
-const uploadSpeedTrace = APM.createTrace('uploadSpeedTrace')
-// 启动trace
-uploadSpeedTrace.start()
+## Precautions
+The agc-web-demos project contains 5 independent projects. After downloading the code, you can load different nested projects to the IDE as required. And you can run each project independently.
 
-// upload code...
+## Question or issues
+If you have questions about how to use AppGallery Connect Demos, try the following options:  
+* [Stack Overflow](https://stackoverflow.com/questions/tagged/appgallery) is the best place for any programming questions. Be sure to tag your question with appgallery or appgallery connect.  
+* [Huawei Developer Forum](https://forums.developer.huawei.com/forumPortal/en/home?fid=0101188387844930001) AppGallery Module is great for general questions, or seeking recommendations and opinions.
+* [Submit ticket online](https://developer.huawei.com/consumer/en/support/feedback/#/) If you encounter a serious or urgent problem, submit a trouble ticket online to contact Huawei technical support.
 
-// 设置自定义属性或指标
-uploadSpeedTrace.setAttribute('file_type', 'photo')
-
-// 设置自定义属性或指标
-uploadSpeedTrace.setMetric('file_size', 5319)
-
-// 结束trace
-uploadSpeedTrace.stop() 
-```
-
-```js
-// 创建一个trace实例
-const successTimeTrace = APM.createTrace('successTimeTrace')
-// 启动trace
-successTimeTrace.start()
-// 设置上传结果指标，成功为1，失败为0
-uploadSpeedTrace.setMetric('upload_result', 1)
-
-// 结束trace
-successTimeTrace.stop()
-
-```
-
-#### 上报数据样例
-```json
-{
-  "website": [1594951239098, 119, 119, 190, -1, 190, 2, 173, 190, 192],
-  "network": [1594951239090, 0, 0, -1, 8, 0, 0, 8, 0],
-  "resources": [
-    [1594951239122, "file:///D:/workspace/CP_APMS_APMSDK_web/example/index.html", 32, "link", "https://cdn.bootcdn.net/ajax/libs/element-ui/2.13.2/theme-chalk/index.css", 26, 32, 32, 32, 32, 32, 0, 42, 47, 57, 0, 232432, 232432],
-    [1594951239124, "file:///D:/workspace/CP_APMS_APMSDK_web/example/index.html", 34, "img", "https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1091405991,859863778&fm=26&gp=0.jpg", 21, 34, 0, 0, 0, 0, 0, 0, 0, 54, 0, 0, 0],
-    [1594951239124, "file:///D:/workspace/CP_APMS_APMSDK_web/example/index.html", 34, "img", "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1593495345540&di=584ed642f89a3665f71e4dbd8acb9dba&imgtype=0&src=http%3A%2F%2Fa2.att.hudong.com%2F36%2F48%2F19300001357258133412489354717.jpg", 55, 34, 0, 0, 0, 0, 0, 0, 0, 89, 0, 0, 0],
-    [1594951239124, "file:///D:/workspace/CP_APMS_APMSDK_web/example/index.html", 34, "script", "https://cdn.bootcdn.net/ajax/libs/vue/3.0.0-beta.15/vue.global.js", 31, 34, 34, 34, 34, 34, 0, 59, 60, 65, 0, 475253, 475253],
-    [1594951239124, "file:///D:/workspace/CP_APMS_APMSDK_web/example/index.html", 34, "script", "https://cdn.bootcdn.net/ajax/libs/element-ui/2.13.2/index.js", 45, 34, 34, 34, 34, 34, 0, 62, 63, 79, 0, 567158, 567158]
-  ],
-  "error": [
-    [
-      [1594951239201, "file://localhost:35729/livereload.js?snipver=1", "file://localhost:35729/livereload.js?snipver=1 is load error"]
-    ],
-    [
-      [1594951239203, "Error: 123"]
-    ],
-    []
-  ],
-  "browser": ["Netscape", "Mozilla", "Chrome/83.0", "Win32", true, "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36", "file:///D:/workspace/CP_APMS_APMSDK_web/example/index.html", "file:", -1, true, "4g", "visible"],
-  "agent_version": "1.0.0",
-  "agent_type": "web",
-  "visitKey": "visit#f2nl58yvdK",
-  "traces": [
-    [1594951239164, "TRACE-test1", 258276, 2, [{
-        "a": "aaa"
-      }, {
-        "b": "bbb"
-      }, {
-        "c": "ccc"
-      }, {
-        "d": "ddd"
-      }, {
-        "e": "eee"
-      }],
-      [{
-        "fff": 1234
-      }, {
-        "ggg": 4321
-      }]
-    ],
-    [1594951239165, "TRACE-test2", 952495, 1001, [{
-        "e": "eee"
-      }],
-      []
-    ]
-  ],
-  "platform": [2005646545446540000, 9105416654164565000, 3301156545454546400, 1010745441]
-}
-```
+If you run into a bug in our samples, please submit an [issue](https://github.com/AppGalleryConnect/agc-android-demos/issues) to the Repository. Even better you can submit a [Pull Request](https://github.com/AppGalleryConnect/agc-android-demos/pulls) with a fix.
