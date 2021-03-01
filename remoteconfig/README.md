@@ -44,13 +44,13 @@ Sample code: src\components\*
 ## Result
 
 **fetchApply**</br>
-<img src="/images/fetchApply.gif" alt="fetchApply" height="957"/>
+<img src="images/fetchApply.gif" alt="fetchApply" height="957"/>
 
 **applyDefault**</br>
-<img src="/images/applyDefault.gif" alt="applyDefault" height="957"/>
+<img src="images/applyDefault.gif" alt="applyDefault" height="957"/>
 
 **getValue**</br>
-<img src="/images/getValue.gif" alt="getValue" height="957"/>
+<img src="images/getValue.gif" alt="getValue" height="957"/>
 
 ## Question or issues
 
