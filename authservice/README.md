@@ -43,22 +43,22 @@ Sample code: src\components\*
 
 ## Result
 **loginAnonymous**</br>
-<img src="/images/anonymous.gif" alt="anonymous" height="946"/>
+<img src="images/anonymous.gif" alt="anonymous" height="946"/>
 
 **createUser**</br>
-<img src="/images/createUser.gif" alt="createUser" height="946"/>
+<img src="images/createUser.gif" alt="createUser" height="946"/>
 
 **deleteUser**</br>
-<img src="/images/deleteUser.gif" alt="deleteUser" height="946"/>
+<img src="images/deleteUser.gif" alt="deleteUser" height="946"/>
 
 **loginByPin**</br>
-<img src="/images/login_phone_pin.gif" alt="loginByPin" height="946"/>
+<img src="images/login_phone_pin.gif" alt="loginByPin" height="946"/>
 
 **loginbyPWD**</br>
-<img src="/images/loginbyPWD.gif" alt="loginbyPWD" height="946"/>
+<img src="images/loginbyPWD.gif" alt="loginbyPWD" height="946"/>
 
 **link**</br>
-<img src="/images/login_phone_link.gif" alt="link" height="946"/>
+<img src="images/login_phone_link.gif" alt="link" height="946"/>
 
 ## Question or issues
 
