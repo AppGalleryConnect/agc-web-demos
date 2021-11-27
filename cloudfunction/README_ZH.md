@@ -1,7 +1,10 @@
 ## 云函数快速入门
 
+<<<<<<< HEAD
 中文 | [English](./README.md)
 
+=======
+>>>>>>> fb8e41a207b7052ce39e1fe59c022d611e677657
 ## 目录
 
  * [简介](#简介)
@@ -21,7 +24,11 @@
 ## 快速入门
 在运行quickstart前，您需要
 1. 如果没有华为开发者联盟帐号，需要先[注册账号](https://developer.huawei.com/consumer/cn/doc/start/registration-and-verification-0000001053628148) 并通过实名认证。
+<<<<<<< HEAD
 2. 使用申请的帐号登录[AppGallery Connect](https://developer.huawei.com/consumer/cn/service/josp/agc/index.html#/) 网站创建一个项目并添加应用，软件包类型选择“Web”。
+=======
+2. 使用申请的帐号登录[AppGallery Connect](https://developer.huawei.com/consumer/cn/doc/development/AppGallery-connect-Guides/agc-get-started) 网站创建一个项目并添加应用，软件包类型选择“Web”。
+>>>>>>> fb8e41a207b7052ce39e1fe59c022d611e677657
 3. 在我的项目中进入新建的项目，选择创建的Web应用，进入“构建”>“云函数”页面，点击“立即开通”，开启云函数。
 4. 点击“项目设置”>“常规”，复制SDK代码片段并粘贴到[config.js](./src/components/config.js) 。
 5. 回到“构建”>“云函数”页面，[创建函数并添加触发器](https://developer.huawei.com/consumer/cn/doc/development/AppGallery-connect-Guides/agc-cloudfunction-appcall-web)
@@ -31,7 +38,11 @@
     npm install
 
     # 安装 AGC cloud functions sdk
+<<<<<<< HEAD
     npm install @agconnect/function@1.3.1 --save
+=======
+    npm install --save @agconnect/function
+>>>>>>> fb8e41a207b7052ce39e1fe59c022d611e677657
 
     # 启动demo
     npm start

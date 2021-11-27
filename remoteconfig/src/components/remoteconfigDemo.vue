@@ -105,6 +105,7 @@
       };
     },
     async created() {
+      configInstance();
       // Gets the storage location last set by the user in the demo and inherits it
       agc.setCryptImp(new agc.Crypt());
 

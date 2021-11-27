@@ -48,6 +48,21 @@
         <br/>
         <el-collapse accordion>
           <el-collapse-item>
+<<<<<<< HEAD
+=======
+            <template slot="title">login mode</template>
+            <el-select v-model="provider" placeholder="login mode select" @change="providerChange">
+              <el-option
+                v-for="item in options"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+              </el-option>
+            </el-select>
+            <br/>
+          </el-collapse-item>
+          <el-collapse-item>
+>>>>>>> fb8e41a207b7052ce39e1fe59c022d611e677657
             <template slot="title">storage mode</template>
             <el-radio-group v-model="saveMode" @change="setStorageMode">
               <el-radio label="2">MEMORY</el-radio>
@@ -122,11 +137,15 @@
         }, {
           value: 'weChat',
           label: 'weChat'
+<<<<<<< HEAD
         },
           {
             value: 'selfBuild',
             label: 'selfBuild'
           }],
+=======
+        }],
+>>>>>>> fb8e41a207b7052ce39e1fe59c022d611e677657
         value: ''
       };
     },
@@ -223,7 +242,11 @@
             providerId: '',
           };
         }).catch((err) => {
+<<<<<<< HEAD
           alert(err.message);
+=======
+          alert(JSON.stringify(err));
+>>>>>>> fb8e41a207b7052ce39e1fe59c022d611e677657
         });
       },
       deleteUser() {
@@ -245,7 +268,11 @@
             };
           });
         }).catch((err) => {
+<<<<<<< HEAD
           alert(err.message);
+=======
+          alert(JSON.stringify(err));
+>>>>>>> fb8e41a207b7052ce39e1fe59c022d611e677657
         });
       },
     },

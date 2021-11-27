@@ -15,6 +15,10 @@
 */
 
 import agconnect from '@agconnect/api';
+<<<<<<< HEAD
+=======
+import '@agconnect/auth';
+>>>>>>> fb8e41a207b7052ce39e1fe59c022d611e677657
 import '@agconnect/instance';
 import '@agconnect/auth';
 
@@ -164,6 +168,7 @@ function loginWithEmail(account, password, verifyCode) {
  * Signs in a user anonymously.
  */
 function loginAnonymously() {
+<<<<<<< HEAD
   return agconnect.auth()
     .signInAnonymously();
 }
@@ -181,22 +186,80 @@ function createPhoneUser(countryCode, account, verifyCode, password) {
 }
 
 /**
+=======
+  return agconnect
+    .auth()
+    .signInAnonymously()
+    .then((res) => {
+      return Promise.resolve(res);
+    })
+    .catch((err) => {
+      return Promise.reject('sign in anonymously failed');
+    });
+}
+
+/**
+ * Creates an account using a mobile number.
+ * @param countryCode Country/Region code
+ * @param account phoneNumber
+ * @param password password
+ * @param verifyCode verification code
+ */
+function createPhoneUser(countryCode, account, verifyCode, password) {
+  return agconnect
+    .auth()
+    .createPhoneUser(new agconnect.auth.PhoneUser(countryCode, account, password, verifyCode))
+    .then((res) => {
+      return Promise.resolve(res);
+    })
+    .catch((err) => {
+      return Promise.reject('create phone user failed');
+    });
+}
+
+/**
+>>>>>>> fb8e41a207b7052ce39e1fe59c022d611e677657
  * Creates an account using a email address.
  * @param account email address
  * @param password password
  * @param verifyCode verification code
  */
 function createEmailUser(account, password, verifyCode) {
+<<<<<<< HEAD
   return agconnect.auth()
     .createEmailUser(new agconnect.auth.EmailUser(account, password, verifyCode));
+=======
+  return agconnect
+    .auth()
+    .createEmailUser(new agconnect.auth.EmailUser(account, password, verifyCode))
+    .then((res) => {
+      return Promise.resolve(res);
+    })
+    .catch((err) => {
+      return Promise.reject('create email user failed');
+    });
+>>>>>>> fb8e41a207b7052ce39e1fe59c022d611e677657
 }
 
 /**
  * Obtains information about the current signed-in user.
  */
 function getUserInfo() {
+<<<<<<< HEAD
   return agconnect.auth()
     .getCurrentUser();
+=======
+  return agconnect
+    .auth()
+    .getCurrentUser()
+    .then((user) => {
+      return Promise.resolve(user);
+    })
+    .catch((err) => {
+      console.error("get user info err:", err)
+      return Promise.reject('get user error', err);
+    });
+>>>>>>> fb8e41a207b7052ce39e1fe59c022d611e677657
 }
 
 /**
@@ -206,6 +269,7 @@ function getUserInfo() {
  * @param lang Language for sending a verification code, for example, zh_CN.
  * @param sendInterval Interval for sending verification codes, in seconds. The value ranges from 30 to 120.
  */
+<<<<<<< HEAD
 function getPhoneVerifyCode(countryCode, account, lang, sendInterval, isReset) {
   if (isReset) {
     return agconnect.auth().requestPhoneVerifyCode(
@@ -224,6 +288,22 @@ function getPhoneVerifyCode(countryCode, account, lang, sendInterval, isReset) {
       sendInterval,
     );
   }
+=======
+function getPhoneVerifyCode(countryCode, account, lang, sendInterval) {
+  return agconnect.auth.PhoneAuthProvider.requestVerifyCode(
+    countryCode,
+    account,
+    agconnect.auth.Action.ACTION_REGISTER_LOGIN,
+    lang,
+    sendInterval,
+  )
+    .then((ret) => {
+      return Promise.resolve(ret);
+    })
+    .catch((err) => {
+      return Promise.reject('get verify code error', err);
+    });
+>>>>>>> fb8e41a207b7052ce39e1fe59c022d611e677657
 }
 
 /**
@@ -232,6 +312,7 @@ function getPhoneVerifyCode(countryCode, account, lang, sendInterval, isReset) {
  * @param lang Language for sending a verification code, for example, zh_CN.
  * @param sendInterval Interval for sending verification codes, in seconds. The value ranges from 30 to 120.
  */
+<<<<<<< HEAD
 function getEmailVerifyCode(account, lang, sendInterval, isReset) {
   if (isReset) {
     return agconnect.auth().requestEmailVerifyCode(
@@ -248,6 +329,21 @@ function getEmailVerifyCode(account, lang, sendInterval, isReset) {
       sendInterval,
     );
   }
+=======
+function getEmailVerifyCode(account, lang, sendInterval) {
+  return agconnect.auth.EmailAuthProvider.requestVerifyCode(
+    account,
+    agconnect.auth.Action.ACTION_REGISTER_LOGIN,
+    lang,
+    sendInterval,
+  )
+    .then((ret) => {
+      return Promise.resolve(ret);
+    })
+    .catch((err) => {
+      return Promise.reject('get verify code error', err);
+    });
+>>>>>>> fb8e41a207b7052ce39e1fe59c022d611e677657
 }
 
 /**

@@ -1,7 +1,10 @@
 ## Auth demo快速入门
 
+<<<<<<< HEAD
 中文 | [English](./README.md)
 
+=======
+>>>>>>> fb8e41a207b7052ce39e1fe59c022d611e677657
 ## 目录
 
  * [简介](#简介)
@@ -21,7 +24,11 @@
 ## 快速入门
 在运行quickstart前，您需要
 1. 如果没有华为开发者联盟帐号，需要先[注册账号](https://developer.huawei.com/consumer/cn/doc/start/registration-and-verification-0000001053628148) 并通过实名认证。
+<<<<<<< HEAD
 2. 使用申请的帐号登录[AppGallery Connect](https://developer.huawei.com/consumer/cn/service/josp/agc/index.html#/) 网站创建一个项目并添加应用，软件包类型选择“Web”。
+=======
+2. 使用申请的帐号登录[AppGallery Connect](https://developer.huawei.com/consumer/cn/doc/development/AppGallery-connect-Guides/agc-get-started) 网站创建一个项目并添加应用，软件包类型选择“Web”。
+>>>>>>> fb8e41a207b7052ce39e1fe59c022d611e677657
 3. 在我的项目中进入新建的项目，选择创建的Web应用，进入“构建”>“认证服务”页面，点击“立即开通”，开启认证服务。
 4. 点击“项目设置”>“API管理”，开启auth Service。
 5. 点击“常规”，复制SDK代码片段并粘贴到[config.js](./src/components/config.js) 。
@@ -32,11 +39,16 @@
     npm install
 
     # 安装 AGC auth sdk
+<<<<<<< HEAD
     npm install @agconnect/auth@1.3.1 --save
+=======
+    npm install --save @agconnect/auth
+>>>>>>> fb8e41a207b7052ce39e1fe59c022d611e677657
 
     # 启动demo
     npm start
     ```
+<<<<<<< HEAD
 8. 更多详情请点击[Auth](https://developer.huawei.com/consumer/cn/doc/development/AppGallery-connect-Guides/agc-auth-web-getstarted-0000001053612703) 。
 
 ## 示例代码
@@ -44,6 +56,15 @@
 Sample code: src\components\*
 
 ## 示例效果
+=======
+8. 更多详情请点击[Auth](https://developer.huawei.com/consumer/cn/doc/development/AppGallery-connect-Guides/agc-auth-quickapp-getstarted-0000001063528213) 。
+
+## Sample Code
+
+Sample code: src\components\*
+
+## Result
+>>>>>>> fb8e41a207b7052ce39e1fe59c022d611e677657
 
 **loginAnonymous**</br>
 <img src="images/anonymous.gif" alt="anonymous" height="946"/>

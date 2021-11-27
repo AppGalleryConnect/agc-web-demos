@@ -16,10 +16,7 @@
 
 import Vue from 'vue';
 import Router from 'vue-router';
-import login from '@/components/login';
-import QQLogin from '@/components/QQLogin';
-import weChatLogin from '@/components/weChatLogin';
-import SelfBuildLogin from '@/components/SelfBuildLogin';
+import remoteconfigDemo from '@/components/remoteconfigDemo';
 
 Vue.use(Router);
 
@@ -27,32 +24,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'login',
-      component: login,
+      name: 'remoteconfigDemo',
+      component: remoteconfigDemo,
     },
-    {
-      path: '/QQLogin',
-      name: 'QQLogin',
-      component: QQLogin,
-    },
-    {
-      path: '/weChatLogin',
-      name: 'weChatLogin',
-      component: weChatLogin,
-<<<<<<< HEAD
-    },
-    {
-      path: '/QQLoginEmptyPage',
-      name: 'QQLoginEmptyPage',
-      component: QQLogin,
-    },
-    {
-      path: '/selfBuildLogin',
-      name: 'SelfBuildLogin',
-      component: SelfBuildLogin,
-    },
-=======
-    }
->>>>>>> fb8e41a207b7052ce39e1fe59c022d611e677657
   ],
 });
