@@ -1,3 +1,19 @@
+/*
+* Copyright 2020. Huawei Technologies Co., Ltd. All rights reserved.
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*      http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
+
 <template>
   <div class="cloudFunction-container">
     <el-form :model="functionDate" :rules="rules" status-icon label-position="left" label-width="80px"
@@ -25,7 +41,6 @@
 
 <script>
   import * as agcFunc from './functions';
-  import {configInstance} from "./config";
 
   export default {
     name: "cloudFunction",
@@ -42,8 +57,6 @@
     },
     // initialize demo
     async created() {
-      configInstance();
-      //  setCryptImp must be executed when init
       agcFunc.setCryptImp(new agcFunc.Crypt());
     },
     methods: {
@@ -51,7 +64,7 @@
         await agcFunc.call(this.functionDate.HttpTrigger, this.functionDate.body, this.functionDate.timeout).then(res=>{
           this.functionDate.res = JSON.stringify(res.getValue());
         }).catch(err=>{
-          this.functionDate.res = JSON.stringify(err);
+          alert(err.message);
         });
       },
       clearInfo(){
