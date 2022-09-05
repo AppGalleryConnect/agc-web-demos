@@ -57,10 +57,6 @@
     },
     // initialize demo
     async created() {
-<<<<<<< HEAD
-=======
-      configInstance();
->>>>>>> fb8e41a207b7052ce39e1fe59c022d611e677657
       agcFunc.setCryptImp(new agcFunc.Crypt());
     },
     methods: {

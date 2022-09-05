@@ -186,3 +186,14 @@ export function applyDefault(map) {
 export function clearAll() {
   return agconnect.remoteConfig().clearAll();
 }
+
+export function setCustomAttributes() {
+  const map = new Map();
+  map.set("filter1", "value1");
+  map.set("filter2", "value2");
+  return agconnect.remoteConfig().setCustomAttributes(map);
+}
+
+export function getCustomAttributes() {
+  return agconnect.remoteConfig().getCustomAttributes();
+}

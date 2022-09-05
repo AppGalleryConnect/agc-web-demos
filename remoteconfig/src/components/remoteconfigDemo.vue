@@ -40,6 +40,14 @@
         <el-button type="primary" @click="applyConfig" class="applyConfigButton">Apply</el-button>
         <el-button type="primary" @click="applyLastLoad" class="applyLastLoadButton">LoadLastFetched</el-button>
       </el-form-item>
+
+        <el-form-item label="CustomAttribute" label-width="200px" class="fetchConfigTitle">
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" @click="setCustomAttribute" class="setCustomAttributeButton">setCustomAttribute</el-button>
+        <el-button type="primary" @click="getCustomAttribute" class="getCustomAttributeButton">getCustomAttribute</el-button>
+      </el-form-item>
+
       <el-form-item label="DefaultConfig" label-width="200px" class="setDefaultVauleTitle">
       </el-form-item>
       <el-form-item>
@@ -105,7 +113,6 @@
       };
     },
     async created() {
-      configInstance();
       // Gets the storage location last set by the user in the demo and inherits it
       agc.setCryptImp(new agc.Crypt());
 
@@ -192,6 +199,32 @@
           ).catch(error => {
             alert(error.message);
           });
+      },
+
+      setCustomAttribute() {
+        return agc.setCustomAttributes().then(
+          ()=>{
+            alert('setCustomAttributes successfully!');
+          }
+        ).catch(
+          (error)=>{
+            alert('setCustomAttributes successfully!' + error);
+          }
+        )  
+      },
+
+      getCustomAttribute() {
+        return agc.getCustomAttributes().then(
+          (value)=>{
+            console.info(value);
+            
+            alert('getCustomAttributes successfully!');
+          }
+        ).catch(
+          (error)=>{
+            alert('getCustomAttributes successfully!' + error);
+          }
+        )  
       },
 
       providerChange() {
