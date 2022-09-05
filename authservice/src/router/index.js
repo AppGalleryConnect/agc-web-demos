@@ -39,7 +39,6 @@ export default new Router({
       path: '/weChatLogin',
       name: 'weChatLogin',
       component: weChatLogin,
-<<<<<<< HEAD
     },
     {
       path: '/QQLoginEmptyPage',
@@ -51,8 +50,5 @@ export default new Router({
       name: 'SelfBuildLogin',
       component: SelfBuildLogin,
     },
-=======
-    }
->>>>>>> fb8e41a207b7052ce39e1fe59c022d611e677657
   ],
 });

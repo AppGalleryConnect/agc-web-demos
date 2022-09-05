@@ -64,21 +64,6 @@
         <br/>
         <el-collapse accordion>
           <el-collapse-item>
-<<<<<<< HEAD
-=======
-            <template slot="title">login mode</template>
-            <el-select v-model="provider" placeholder="login mode select" @change="providerChange">
-              <el-option
-                v-for="item in options"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-              </el-option>
-            </el-select>
-            <br/>
-          </el-collapse-item>
-          <el-collapse-item>
->>>>>>> fb8e41a207b7052ce39e1fe59c022d611e677657
             <template slot="title">storage mode</template>
             <el-radio-group v-model="saveMode" @change="setStorageMode">
               <el-radio label="2">MEMORY</el-radio>
@@ -87,27 +72,6 @@
             </el-radio-group>
             <br/>
           </el-collapse-item>
-<<<<<<< HEAD
-=======
-          <el-collapse-item>
-            <template slot="title">User info</template>
-            <el-form :label-position="labelPosition" style="width: 20%;" label-width="120px" :model="accountInfo">
-              <el-form-item label="UID:">{{ accountInfo.uid }}</el-form-item>
-              <el-form-item label="Anonymous:">{{ accountInfo.anonymous }}</el-form-item>
-              <el-form-item label="displayName:">{{ accountInfo.displayName }}</el-form-item>
-              <el-form-item label="email:">{{ accountInfo.email }}</el-form-item>
-              <el-form-item label="phone:">{{ accountInfo.phone }}</el-form-item>
-              <el-form-item label="photoUrl:">{{ accountInfo.photoUrl }}</el-form-item>
-              <el-form-item label="providerId:">{{ accountInfo.providerId }}</el-form-item>
-              <el-form-item label="emailVerified:">{{ accountInfo.emailVerified }}</el-form-item>
-              <el-form-item label="passwordSetted:">{{ accountInfo.passwordSetted }}</el-form-item>
-            </el-form>
-            <br/><br/>
-            <el-button type="primary" size="medium" style="width: 50%;" @click="logOut">log out</el-button>
-            <br/><br/>
-            <el-button type="danger" size="medium" style="width: 50%;" @click="deleteUser">delete user</el-button>
-          </el-collapse-item>
->>>>>>> fb8e41a207b7052ce39e1fe59c022d611e677657
         </el-collapse>
       </el-form-item>
       <el-drawer
@@ -162,11 +126,8 @@
   export default {
     data() {
       return {
-<<<<<<< HEAD
         drawer: false,
         direction: 'rtl',
-=======
->>>>>>> fb8e41a207b7052ce39e1fe59c022d611e677657
         saveMode: '0',
         provider: 'phone',
         customProvider: '0',
@@ -183,13 +144,8 @@
           phone: '',
           photoUrl: '',
           providerId: '',
-<<<<<<< HEAD
           emailVerified: '',
           passwordSetted: '',
-=======
-          emailVerified:'',
-          passwordSetted:'',
->>>>>>> fb8e41a207b7052ce39e1fe59c022d611e677657
         },
         rules: {
           email: [{required: true, message: 'input your account', trigger: 'blur'}],
@@ -208,26 +164,16 @@
         }, {
           value: 'weChat',
           label: 'weChat'
-<<<<<<< HEAD
         }, {
             value: 'selfBuild',
             label: 'selfBuild'
           }],
-=======
-        }],
-        value: ''
->>>>>>> fb8e41a207b7052ce39e1fe59c022d611e677657
       };
     },
     // initialize demo
     async created() {
-<<<<<<< HEAD
       agc.setCryptImp(new agc.Crypt());
       agc.setAuthCryptImp(new agc.AuthCrypt());
-=======
-      configInstance();
-
->>>>>>> fb8e41a207b7052ce39e1fe59c022d611e677657
       // Gets the storage location last set by the user in the demo and inherits it
       this.saveMode = await getSaveMode('saveMode');
       if (!this.saveMode) {
@@ -238,12 +184,6 @@
       if (providerParam) {
         this.provider = providerParam;
       }
-<<<<<<< HEAD
-=======
-
-      //Check whether any user is logged in. If so, refresh the page to the user information page
-      this.getUserInfo();
->>>>>>> fb8e41a207b7052ce39e1fe59c022d611e677657
     },
     methods: {
       async setStorageMode() {
@@ -388,11 +328,7 @@
               alert('login successfully!');
               this.getUserInfo();
             }).catch((err) => {
-<<<<<<< HEAD
               alert(err.message);
-=======
-              alert(JSON.stringify(err));
->>>>>>> fb8e41a207b7052ce39e1fe59c022d611e677657
             });
             break;
           case 'email':
@@ -404,11 +340,7 @@
               alert('login successfully!');
               this.getUserInfo();
             }).catch((err) => {
-<<<<<<< HEAD
               alert(err.message);
-=======
-              alert(JSON.stringify(err));
->>>>>>> fb8e41a207b7052ce39e1fe59c022d611e677657
             });
             break;
           default:
@@ -423,11 +355,7 @@
           alert('login successfully!');
           this.getUserInfo();
         }).catch((err) => {
-<<<<<<< HEAD
           alert(err.message);
-=======
-          alert(JSON.stringify(err));
->>>>>>> fb8e41a207b7052ce39e1fe59c022d611e677657
         });
         this.dataForm_sdk.account = "";
         this.dataForm_sdk.password = "";
@@ -445,11 +373,7 @@
               alert('create user successfully!');
               this.getUserInfo();
             }).catch((err) => {
-<<<<<<< HEAD
               alert(err.message);
-=======
-              alert(JSON.stringify(err));
->>>>>>> fb8e41a207b7052ce39e1fe59c022d611e677657
             });
             break;
           case 'email':
@@ -461,11 +385,7 @@
               alert('create user successfully!');
               this.getUserInfo();
             }).catch((err) => {
-<<<<<<< HEAD
               alert(err.message);
-=======
-              alert(JSON.stringify(err));
->>>>>>> fb8e41a207b7052ce39e1fe59c022d611e677657
             });
             break;
           default:
@@ -534,11 +454,7 @@
               .then((ret) => {
                 alert('verify code sent by AGC!');
               }).catch((err) => {
-<<<<<<< HEAD
               alert(err.message);
-=======
-              alert(JSON.stringify(err));
->>>>>>> fb8e41a207b7052ce39e1fe59c022d611e677657
             });
             break;
           case 'email':
@@ -546,11 +462,7 @@
               .then((ret) => {
                 alert('verify code sent by AGC!');
               }).catch((err) => {
-<<<<<<< HEAD
               alert(err.message);
-=======
-              alert(JSON.stringify(err));
->>>>>>> fb8e41a207b7052ce39e1fe59c022d611e677657
             });
             break;
           default:
@@ -568,19 +480,11 @@
             phone: '',
             photoUrl: '',
             providerId: '',
-<<<<<<< HEAD
             emailVerified: '',
             passwordSetted: '',
           };
         }).catch((err) => {
           alert(err.message);
-=======
-            emailVerified:'',
-            passwordSetted:'',
-          };
-        }).catch((err) => {
-          alert(JSON.stringify(err));
->>>>>>> fb8e41a207b7052ce39e1fe59c022d611e677657
         });
       },
       deleteUser() {
@@ -599,21 +503,12 @@
               phone: '',
               photoUrl: '',
               providerId: '',
-<<<<<<< HEAD
               emailVerified: '',
               passwordSetted: '',
             };
           });
         }).catch((err) => {
           alert(err.message);
-=======
-              emailVerified:'',
-              passwordSetted:'',
-            };
-          });
-        }).catch((err) => {
-          alert(JSON.stringify(err));
->>>>>>> fb8e41a207b7052ce39e1fe59c022d611e677657
         });
       },
 

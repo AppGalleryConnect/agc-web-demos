@@ -42,21 +42,6 @@
         <br/>
         <el-collapse accordion>
           <el-collapse-item>
-<<<<<<< HEAD
-=======
-            <template slot="title">login mode</template>
-            <el-select v-model="provider" placeholder="login mode select" @change="providerChange">
-              <el-option
-                v-for="item in options"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-              </el-option>
-            </el-select>
-            <br/>
-          </el-collapse-item>
-          <el-collapse-item>
->>>>>>> fb8e41a207b7052ce39e1fe59c022d611e677657
             <template slot="title">storage mode</template>
             <el-radio-group v-model="saveMode" @change="setStorageMode">
               <el-radio label="2">MEMORY</el-radio>
@@ -65,27 +50,6 @@
             </el-radio-group>
             <br/>
           </el-collapse-item>
-<<<<<<< HEAD
-=======
-          <el-collapse-item>
-            <template slot="title">User info</template>
-            <el-form :label-position="labelPosition" style="width: 20%;" label-width="120px" :model="accountInfo">
-              <el-form-item label="UID:">{{ accountInfo.uid }}</el-form-item>
-              <el-form-item label="Anonymous:">{{ accountInfo.anonymous }}</el-form-item>
-              <el-form-item label="displayName:">{{ accountInfo.displayName }}</el-form-item>
-              <el-form-item label="email:">{{ accountInfo.email }}</el-form-item>
-              <el-form-item label="phone:">{{ accountInfo.phone }}</el-form-item>
-              <el-form-item label="photoUrl:">{{ accountInfo.photoUrl }}</el-form-item>
-              <el-form-item label="providerId:">{{ accountInfo.providerId }}</el-form-item>
-              <el-form-item label="emailVerified:">{{ accountInfo.emailVerified }}</el-form-item>
-              <el-form-item label="passwordSetted:">{{ accountInfo.passwordSetted }}</el-form-item>
-            </el-form>
-            <br/><br/>
-            <el-button type="primary" size="medium" style="width: 50%;" @click="logOut">log out</el-button>
-            <br/><br/>
-            <el-button type="danger" size="medium" style="width: 50%;" @click="deleteUser">delete user</el-button>
-          </el-collapse-item>
->>>>>>> fb8e41a207b7052ce39e1fe59c022d611e677657
         </el-collapse>
         <el-drawer
           title="User Info"
@@ -139,7 +103,6 @@
           providerId: '',
           emailVerified: '',
           passwordSetted: '',
-<<<<<<< HEAD
         },
         options: [{
           value: 'phone',
@@ -158,23 +121,6 @@
           value: 'selfBuild',
           label: 'selfBuild'
         }],
-=======
-        },
-        options: [{
-          value: 'phone',
-          label: 'phone'
-        }, {
-          value: 'email',
-          label: 'email'
-        }, {
-          value: 'QQ',
-          label: 'QQ'
-        }, {
-          value: 'weChat',
-          label: 'weChat'
-        }],
-        value: ''
->>>>>>> fb8e41a207b7052ce39e1fe59c022d611e677657
       };
     },
     async created() {
@@ -226,11 +172,7 @@
       },
       QQLogin() {
         QC.Login.showPopup({
-<<<<<<< HEAD
           appId: "", // your appId in connect.qq.com,such as 101890031
-=======
-          appId: "101890031",
->>>>>>> fb8e41a207b7052ce39e1fe59c022d611e677657
           redirectURI: "http://127.0.0.1:8080/#/QQLoginEmptyPage"
         });
       },
@@ -251,22 +193,13 @@
               await agc.link('QQ', accessToken, openID, '').then((ret) => {
                 alert('link QQ OK');
               }).catch((err) => {
-<<<<<<< HEAD
                 alert(err.message);
-=======
-                alert(JSON.stringify(err));
->>>>>>> fb8e41a207b7052ce39e1fe59c022d611e677657
               });
             } else {
               await loginWithQQ(accessToken, openID, true).then(result => {
                 alert('login With QQ OK');
-<<<<<<< HEAD
               }).catch(err => {
                 alert(err.message);
-=======
-              }).catch(error => {
-                alert(JSON.stringify(err));
->>>>>>> fb8e41a207b7052ce39e1fe59c022d611e677657
               });
             }
           });
@@ -292,11 +225,7 @@
             passwordSetted: '',
           };
         }).catch((err) => {
-<<<<<<< HEAD
           alert(err.message);
-=======
-          alert(JSON.stringify(err));
->>>>>>> fb8e41a207b7052ce39e1fe59c022d611e677657
         });
       },
       deleteUser() {
@@ -320,11 +249,7 @@
             };
           });
         }).catch((err) => {
-<<<<<<< HEAD
           alert(err.message);
-=======
-          alert(JSON.stringify(err));
->>>>>>> fb8e41a207b7052ce39e1fe59c022d611e677657
         });
       },
       doLink() {
