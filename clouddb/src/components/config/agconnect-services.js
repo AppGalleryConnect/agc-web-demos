@@ -15,41 +15,7 @@
 */
 
 const context = {
-    "agcgw":{
-        "websocketbackurl":"connect-ws-drcn.hispace.dbankcloud.cn",
-        "backurl":"connect-drcn.dbankcloud.cn",
-        "websocketurl":"connect-ws-drcn.hispace.dbankcloud.com",
-        "url":"connect-drcn.hispace.hicloud.com"
-    },
-    "client":{
-        "appType":"9999",
-        "cp_id":"XXXXXXXXXXXXXXXXXXXXXXX",
-        "product_id":"XXXXXXXXXXXXXXXXXXXXXXX",
-        "client_id":"XXXXXXXXXXXXXXXXXXXXXXX",
-        "client_secret":"XXXXXXXXXXXXXXXXXXXXXXX",
-        "project_id":"XXXXXXXXXXXXXXXXXXXXXXX",
-        "app_id":"XXXXXXXXXXXXXXXXXXXXXXX",
-        "api_key":"XXXXXXXXXXXXXXXXXXXXXXX"
-    },
-    "service":{
-        "analytics":{
-            "collector_url":"datacollector-drcn.dt.hicloud.com,datacollector-drcn.dt.dbankcloud.cn",
-            "resource_id":"p1",
-            "channel_id":""
-        },
-        "search":{
-            "url":"https://search-drcn.cloud.huawei.com"
-        },
-        "cloudstorage":{
-            "storage_url":"https://agc-storage-drcn.platform.dbankcloud.cn"
-        },
-        "ml":{
-            "mlservice_url":"ml-api-drcn.ai.dbankcloud.com,ml-api-drcn.ai.dbankcloud.cn"
-        }
-    },
-    "region":"CN",
-    "configuration_version":"2.0"
-};
+}
 
 
 export {

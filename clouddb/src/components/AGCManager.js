@@ -15,15 +15,15 @@
 */
 
 import {
-    AGConnectCloudDB,
-    CloudDBZoneQuery,
-    CloudDBZoneConfig,
-} from '@agconnect/database';
-import agconnect from '@agconnect/api';
-import '@agconnect/auth';
-import '@agconnect/instance';
-import {context} from './config/agconnect-services.js';
-import {BookInfo} from './model/BookInfo';
+  AGConnectCloudDB,
+  CloudDBZoneQuery,
+  CloudDBZoneConfig,
+} from '@hw-agconnect/database';
+import agconnect from '@hw-agconnect/api';
+import '@hw-agconnect/auth';
+import '@hw-agconnect/instance';
+import { context } from './config/agconnect-services.js';
+import { BookInfo } from './model/BookInfo';
 
 let agcCloudDB;
 let cloudDBZone;
@@ -34,39 +34,96 @@ let cloudDBZone;
  * @returns {Promise<boolean>}
  */
 async function agcLogin() {
-    agconnect.instance().configInstance(context)
-    AGConnectCloudDB.initialize(context);
-    const agcAuth = agconnect.auth();
-    console.log('start');
-    const getUser = await agcAuth.getCurrentUser();
-    if (getUser === null || getUser === undefined) {
-        // try anonymously login
-        console.log('try anonymously login');
-        try {
-            const result = await agcAuth.signInAnonymously();
-            if (result.getUser() !== null && result.getUser() !== undefined) {
-                console.log('login success');
+  agconnect.instance().configInstance(context);
+  AGConnectCloudDB.initialize(context);
+  const agcAuth = agconnect.auth();
+  console.log('start');
+  const getUser = await agcAuth.getCurrentUser();
+  if (getUser === null || getUser === undefined) {
+    // try anonymously login
+    console.log('try anonymously login');
+    try {
+      const result = await agcAuth.signInAnonymously();
+      if (result.getUser() !== null && result.getUser() !== undefined) {
+        console.log('login success');
 
-                // try to create schema
-                console.log('start create schema');
-                try {
-                    const schema = require('./config/BookInfo.json');
-                    agcCloudDB = AGConnectCloudDB.getInstance();
-                    await agcCloudDB.createObjectType(schema);
-                    console.log('create success');
-                    return true;
-                } catch (e) {
-                    console.log('create failed:' + e.message);
-                    return false;
-                }
-            } else {
-                console.log('login failed');
-            }
+        // try to create schema
+        console.log('start create schema');
+        try {
+          const schema = require('./config/BookInfo.json');
+          agcCloudDB = AGConnectCloudDB.getInstance();
+          await agcCloudDB.createObjectType(schema);
+          console.log('create success');
+          return true;
         } catch (e) {
-            console.log('try to login but failed, error reason is:' + e.message);
-            return false;
+          console.log('create failed:' + e.message);
+          return false;
         }
+      } else {
+        console.log('login failed');
+      }
+    } catch (e) {
+      console.log('try to login but failed, error reason is:' + e.message);
+      return false;
     }
+  }
+}
+
+async function agcLoginByPhone(countryCode, userName, password) {
+  agconnect.instance().configInstance(context);
+  AGConnectCloudDB.initialize(context);
+  const agcAuth = agconnect.auth();
+  console.log('start');
+  const getUser = await agcAuth.getCurrentUser();
+  if (getUser === null || getUser === undefined) {
+    // try anonymously login
+    console.log('try login');
+    try {
+      const credential = agconnect.auth.PhoneAuthProvider
+        .credentialWithPassword(countryCode, userName, password);
+      return agconnect.auth().signIn(credential).then(async res => {
+        if (res.getUser()) {
+          console.log('login success');
+          // try to create schema
+          console.log('start create schema');
+          try {
+            const schema = require('./config/BookInfo.json');
+            agcCloudDB = AGConnectCloudDB.getInstance();
+            await agcCloudDB.createObjectType(schema);
+            console.log('create success');
+            return Promise.resolve(true);
+          } catch (e) {
+            console.log('create failed:' + e.message);
+            return Promise.reject(false);
+          }
+        } else {
+          console.log('login failed');
+          return Promise.reject(false);
+        }
+      });
+    } catch (e) {
+      console.log('try to login but failed, error reason is:' + e.message);
+      return false;
+    }
+  }
+}
+
+async function logOut() {
+  await agconnect.auth().signOut().then(() => {
+    console.log('logout success');
+  }).catch(e => {
+    console.log(e);
+    console.log('logout failed');
+  });
+}
+
+async function setUserKeys(userKey, userReKey) {
+  await AGConnectCloudDB.getInstance().setUserKey(userKey, userReKey).then(() => {
+    console.log('set or modify user key success');
+  }).catch(e => {
+    console.log(e);
+    console.log('set or modify user key failed');
+  });
 }
 
 /**
@@ -74,18 +131,18 @@ async function agcLogin() {
  *
  * @returns {Promise<boolean>}
  */
-async function openCloudDBZone() {
-    console.log('try to open zone')
-    try {
-        const config = new CloudDBZoneConfig('BaseZoneA');
-        cloudDBZone = await agcCloudDB.openCloudDBZone(config);
-        console.log('open zone success:');
-        console.log(cloudDBZone);
-        return true;
-    } catch (e) {
-        console.log('open zone failed:' + e.message);
-        return false;
-    }
+async function openCloudDBZone(zoneName) {
+  console.log('try to open zone');
+  try {
+    const config = new CloudDBZoneConfig(zoneName);
+    cloudDBZone = await agcCloudDB.openCloudDBZone(config);
+    console.log('open zone success:');
+    console.log(cloudDBZone);
+    return true;
+  } catch (e) {
+    console.log('open zone failed:' + e.message);
+    return false;
+  }
 }
 
 /**
@@ -94,15 +151,15 @@ async function openCloudDBZone() {
  * @returns {Promise<void>}
  */
 async function subscribeSnapshot(onSnapshotListener) {
-    try {
-        const query = CloudDBZoneQuery.where(BookInfo);
-        query.equalTo('shadowFlag', true);
-        const listenerHandler = await cloudDBZone.subscribeSnapshot(query, onSnapshotListener);
-        return listenerHandler;
-    } catch (e) {
-        console.log('subscribeSnapshot error:' + e.message);
-        return null;
-    }
+  try {
+    const query = CloudDBZoneQuery.where(BookInfo);
+    query.equalTo('shadowFlag', true);
+    const listenerHandler = await cloudDBZone.subscribeSnapshot(query, onSnapshotListener);
+    return listenerHandler;
+  } catch (e) {
+    console.log('subscribeSnapshot error:' + e.message);
+    return null;
+  }
 }
 
 /**
@@ -112,14 +169,14 @@ async function subscribeSnapshot(onSnapshotListener) {
  * @returns {Promise<number>}
  */
 async function executeUpsert(book) {
-    try {
-        const cloudDBZoneResult = await cloudDBZone.executeUpsert(book);
-        console.log('upsert ' + cloudDBZoneResult + ' record');
-        return cloudDBZoneResult;
-    } catch (e) {
-        console.log('upsert failed with reason:' + e.message);
-        return 0;
-    }
+  try {
+    const cloudDBZoneResult = await cloudDBZone.executeUpsert(book);
+    console.log('upsert ' + cloudDBZoneResult + ' record');
+    return cloudDBZoneResult;
+  } catch (e) {
+    console.log('upsert failed with reason:' + e.message);
+    return 0;
+  }
 }
 
 /**
@@ -129,13 +186,13 @@ async function executeUpsert(book) {
  * @returns {Promise<number>}
  */
 async function executeDelete(book) {
-    try {
-        const num = await cloudDBZone.executeDelete(book);
-        return num;
-    } catch (e) {
-        console.log('delete failed with reason:' + e.message);
-        return 0;
-    }
+  try {
+    const num = await cloudDBZone.executeDelete(book);
+    return num;
+  } catch (e) {
+    console.log('delete failed with reason:' + e.message);
+    return 0;
+  }
 }
 
 /**
@@ -144,19 +201,19 @@ async function executeDelete(book) {
  * @returns {Promise<T[]>}
  */
 async function executeQueryAllBooks() {
-    try {
-        return await new Promise(resolve => {
-            const query = CloudDBZoneQuery.where(BookInfo);
-            query.orderByDesc('price');
-            cloudDBZone.executeQuery(query).then(snapshot => {
-                const resultArray = snapshot.getSnapshotObjects();
-                resolve(resultArray);
-            });
-        });
-    } catch (e) {
-        console.log('query failed with reason:' + e.message);
-        return null;
-    }
+  try {
+    return await new Promise(resolve => {
+      const query = CloudDBZoneQuery.where(BookInfo);
+      query.orderByDesc('price');
+      cloudDBZone.executeQuery(query).then(snapshot => {
+        const resultArray = snapshot.getSnapshotObjects();
+        resolve(resultArray);
+      });
+    });
+  } catch (e) {
+    console.log('query failed with reason:' + e.message);
+    return null;
+  }
 }
 
 /**
@@ -166,32 +223,32 @@ async function executeQueryAllBooks() {
  * @returns {Promise<null|T[]>}
  */
 async function executeQueryComposite(object) {
-    try {
-        return await new Promise(resolve => {
-            console.log(object);
-            const query = CloudDBZoneQuery.where(BookInfo);
-            if (object.name.length > 0) {
-                query.equalTo('bookName', object.name);
-            }
-            if (parseFloat(object.minPrice) > 0) {
-                query.greaterThanOrEqualTo('price', parseFloat(object.minPrice));
-            }
-            if (parseFloat(object.maxPrice) > 0 && parseFloat(object.maxPrice) > parseFloat(object.minPrice)) {
-                query.lessThanOrEqualTo('price', parseFloat(object.maxPrice));
-            }
-            if (parseInt(object.bookCount) > 0) {
-                query.limit(parseInt(object.bookCount));
-            }
-            query.orderByAsc('id');
-            cloudDBZone.executeQuery(query).then(snapshot => {
-                const resultArray = snapshot.getSnapshotObjects();
-                resolve(resultArray);
-            });
-        });
-    } catch (e) {
-        console.log('query failed with reason:' + e.message);
-        return null;
-    }
+  try {
+    return await new Promise(resolve => {
+      console.log(object);
+      const query = CloudDBZoneQuery.where(BookInfo);
+      if (object.name.length > 0) {
+        query.equalTo('bookName', object.name);
+      }
+      if (parseFloat(object.minPrice) > 0) {
+        query.greaterThanOrEqualTo('price', parseFloat(object.minPrice));
+      }
+      if (parseFloat(object.maxPrice) > 0 && parseFloat(object.maxPrice) > parseFloat(object.minPrice)) {
+        query.lessThanOrEqualTo('price', parseFloat(object.maxPrice));
+      }
+      if (parseInt(object.bookCount) > 0) {
+        query.limit(parseInt(object.bookCount));
+      }
+      query.orderByAsc('id');
+      cloudDBZone.executeQuery(query).then(snapshot => {
+        const resultArray = snapshot.getSnapshotObjects();
+        resolve(resultArray);
+      });
+    });
+  } catch (e) {
+    console.log('query failed with reason:' + e.message);
+    return null;
+  }
 }
 
 /**
@@ -202,32 +259,35 @@ async function executeQueryComposite(object) {
  * @returns {Promise<T[]>}
  */
 async function queryDataByOrderWay(filedName, sortType) {
-    try {
-        return await new Promise(resolve => {
-            const query = CloudDBZoneQuery.where(BookInfo);
-            if (sortType === 1) {
-                query.orderByAsc(filedName);
-            } else {
-                query.orderByDesc(filedName);
-            }
-            cloudDBZone.executeQuery(query).then(snapshot => {
-                const resultArray = snapshot.getSnapshotObjects();
-                resolve(resultArray);
-            });
-        });
-    } catch (e) {
-        console.log('query failed with reason:' + e.message);
-        return null;
-    }
+  try {
+    return await new Promise(resolve => {
+      const query = CloudDBZoneQuery.where(BookInfo);
+      if (sortType === 1) {
+        query.orderByAsc(filedName);
+      } else {
+        query.orderByDesc(filedName);
+      }
+      cloudDBZone.executeQuery(query).then(snapshot => {
+        const resultArray = snapshot.getSnapshotObjects();
+        resolve(resultArray);
+      });
+    });
+  } catch (e) {
+    console.log('query failed with reason:' + e.message);
+    return null;
+  }
 }
 
 export {
-    agcLogin,
-    openCloudDBZone,
-    executeUpsert,
-    executeQueryAllBooks,
-    executeQueryComposite,
-    queryDataByOrderWay,
-    executeDelete,
-    subscribeSnapshot
-}
+  agcLogin,
+  openCloudDBZone,
+  executeUpsert,
+  executeQueryAllBooks,
+  executeQueryComposite,
+  queryDataByOrderWay,
+  executeDelete,
+  subscribeSnapshot,
+  agcLoginByPhone,
+  logOut,
+  setUserKeys
+};
